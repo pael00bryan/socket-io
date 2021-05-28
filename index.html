@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SD Elective Socket.io-Backbone.js Chat Example</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- to run this file you need to type "npm install" in the cmd 
+       afterwards run the "node server.js" then open localhost:3000  -->
+
+        <div id="content"></div>
+
+    </div>
+
+    <script type="text/template" id="message">
+        <li class="<%= position %>">
+            <div class="head">
+                <span class="time"><%= time %></span>
+                <span class="name"><%= username %></span>
+            </div>
+            <div class="<%= type %>">
+                <%= message %>
+            </div>
+        </li>
+    </script>
+
+    <script type="text/template" id="chatUsers">
+
+        <!-- this will dispaly new message -->
+        <li id="everyone">
+            <i class="fa fa-users fa-fw user-icon"></i>
+            <div class="info">
+                <div class="user">Group Chat</div>
+                <div class="message-alert label label-warning">New message</div>
+            </div>
+        </li>
+        <% if (_.isEmpty(users)) { %>
+            <li class="no-user">
+                <p>No user online..</p>
+            </li>
+            <% } %>
+                <% _.each(users, function(user) { %>
+                    <li id="<%= user.username %>">
+                        <i class="fa fa-user fa-fw user-icon"></i>
+                        <div class="info">
+                            <div class="user">
+                                <%= user.username %>
+                            </div>
+                            <div class="status <%= user.status %>">
+                                <%= user.status %>
+                            </div>
+                            <div class="message-alert label label-warning">New message</div>
+                        </div>
+                    </li>
+                    <% }); %>
+    </script>
+
+
+    <script type="text/template" id="receiver">
+        <div class="avatar">
+            <% if (receiver == 'everyone') { %>
+                <i class="fa fa-users"></i>
+                <% } else { %>
+                    <i class="fa fa-user"></i>
+                    <% } %>
+        </div>
+        <div class="info">
+            <% if (receiver == 'everyone') { %>
+                <div class="name">Group Chat (all users)</div>
+                <% } else { %>
+                    <div class="name">
+                        <%= receiver %>
+                    </div>
+                    <% } %>
+                        <div class="count"><span>0</span> messages</div>
+        </div>
+    </script>
+    <script src="assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="assets/js/underscore-min.js" type="text/javascript"></script>
+    <script src="assets/js/backbone-min.js" type="text/javascript"></script>
+    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/js/socket.io-1.4.5.js"></script>
+
+    <script src="modules/message-sender.js" type="text/javascript"></script>
+
+    <script src="app/main.js" type="text/javascript"></script>
+    <script src="app/home.js" type="text/javascript"></script>
+    <script src="app/chat.js" type="text/javascript"></script>
+    <script src="app/utils.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        App.Utils.templateLoader(["HomeView", "ChatView"], function() {
+            app = new App.Router();
+            Backbone.history.start();
+        });
+    </script>
+
+</body>
+
+</html>

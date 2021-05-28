@@ -1,0 +1,15 @@
+{
+    "name": "socket.io-backbone.js-chat",
+    "version": "0.0.1",
+    "author": "reyes",
+    "license": "MIT",
+    "description": "Socket.io & Backbone.js Chat",
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "dependencies": {
+        "express": "^4.14.0",
+        "socket.io": "^1.5.0"
+    }
+}

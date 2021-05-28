@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 app.use(express.static(__dirname + '/'));
-const port=process.env.port || 5000;
+const port=process.env.PORT || 5000;
 var server = app.listen(port, function () {
     console.log("Server running on port 5000..");
 });

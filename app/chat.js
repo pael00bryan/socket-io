@@ -9,17 +9,59 @@ App.ChatView = Backbone.View.extend({
 
     initialize: function(options) {
 
+
         var self = this;
         this.messageCount = 0;
         this.username = options.username;
         this.receiver = 'everyone';
         this.messages = {};
-
+    
+        console.log(this.username)
+        
         if (!App.socket) {
             App.socket = io.connect('', {
                 query: 'username=' + this.username
             });
         }
+
+     
+        // this part is the js for the typing msg
+        var user = this.username;
+    $(document).ready(function(){
+
+        
+        window.EmojiPicker.init();
+        const emojis = ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "☺️", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "😘", "😗", "😙", "😚", "😋", "😜", "😝", "😛", "🤑", "🤗", "🤓", "😎", "🤡", "🤠", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣", "😖", "😫", "😩", "😤", "😠", "😡", "😶", "😐", "😑", "😯", "😦", "😧", "😮", "😲", "😵", "😳", "😱", "😨", "😰", "😢", "😥", "🤤", "😭", "😓", "😪", "😴", "🙄", "🤔", "🤥", "😬", "🤐", "🤢", "🤧", "😷", "🤒", "🤕"]
+        var random;
+        var randomTemp;
+        $('.rotate-emoji').mouseover(function () {
+            random = Math.floor(Math.random() * emojis.length) + 1
+            if (random == randomTemp) {
+                random = Math.floor(Math.random() * emojis.length) + 1
+            }
+            randomTemp = random;
+            setTimeout(function () {
+                $('.rotate-emoji').html(emojis[random]);
+            }, 100);
+        
+        })
+
+        $('.input-message').keyup(()=>{
+            App.socket.emit("naa-nagtype",{
+            kinsa: user,
+            typing: $('.input-message').val().length>0?true:false
+            })
+                })
+                App.socket.on("naa-nagtype",(data)=>{
+                    if(data.typing){
+                        $('.typing').html(`${data.kinsa} is typing...`)
+                    }else{
+                        $('.typing').html("")
+                    }
+        });
+    });
+
+
 
         // keep track of chat messages
         App.socket.on('message', function(data) {
@@ -86,24 +128,24 @@ App.ChatView = Backbone.View.extend({
     // send message to the server
     sendMessage: function() {
 
-        if ($('#input-message').val() == '') {
+        if ($('.input-message').val() == '') {
             return false;
         }
 
         var messageSender, senderClass, data, pattern, res;
 
         pattern = /(www\.)?([\w\-]+)\.([\w]+)/gm;
-        res = pattern.test($('#input-message').val());
+        res = pattern.test($('.input-message').val());
 
         if (res) {
-            res = /([a-zA-Z-0-9_]+)\.(jpg|png|gif)/.test($('#input-message').val());
+            res = /([a-zA-Z-0-9_]+)\.(jpg|png|gif)/.test($('.input-message').val());
             if (res) {
-                senderClass = new ImageLinkMessageSender(App.socket, $('#input-message'));
+                senderClass = new ImageLinkMessageSender(App.socket, $('.input-message'));
             } else {
-                senderClass = new LinkMessageSender(App.socket, $('#input-message'));
+                senderClass = new LinkMessageSender(App.socket, $('.input-message'));
             }
         } else {
-            senderClass = new TextMessageSender(App.socket, $('#input-message'));
+            senderClass = new TextMessageSender(App.socket, $('.input-message'));
         }
 
         messageSender = new MessageSender(senderClass);
@@ -122,7 +164,7 @@ App.ChatView = Backbone.View.extend({
 
         messageSender.send(data);
 
-        // print message
+        // print message of the user, your msg precisely
         data.position = 'right';
         this.print(data);
         this.setScroll();
@@ -205,5 +247,10 @@ App.ChatView = Backbone.View.extend({
     usersTemplate: _.template($("#chatUsers").html()),
 
     receiverTemplate: _.template($("#receiver").html())
+
+
+
+
+
 
 });

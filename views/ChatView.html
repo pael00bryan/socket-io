@@ -1,4 +1,4 @@
-<div class="ui">
+<div class="ui mt-5">
     <div class="left-menu">
         <form action="#" class="search">
             <input placeholder="search..." type="search" name="" id="">
@@ -18,8 +18,8 @@
                     <i class="fa fa-users"></i>
                 </div>
                 <div class="info">
-                    <div class="name">Group Chat (all users)</div>
-                    <div class="count"><span>0</span> messages</div>
+                    <div class="name" style="font-size: 19px;">Group Chat (all users)</div>
+                    <div class="count" style="font-size: 10px;"><span>0</span> messages</div>
                 </div>
             </div>
 
@@ -41,18 +41,20 @@
         </div>
         <div class="chat-body">
             <ul class="messages" id="messages">
-
+                    
             </ul>
+          
         </div>
-
+        <div >
+            <p class="typing" style="margin-left:20px"></p>
+        </div>
         <div class="write-form">
             <form>
-                <input id="input-message" type="text" placeholder="Type your message here..." autocomplete="off" />
+                <input class="input-message" id="chat-input" data-emoji="true" name="emoji" style="font-size: 15px;" type="text" placeholder="Type your message here..." autocomplete="off" />
                 <i class="fa fa-picture-o"></i>
                 <i class="fa fa-file-o"></i>
-                <button class="btn send" id="send" type="submit">Send</button>
+                <button class="btn float-right mr-5 btn-success py-2" id="send" type="submit">Send</button>
             </form>
-
         </div>
     </div>
 </div>

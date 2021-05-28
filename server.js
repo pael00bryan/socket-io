@@ -3,8 +3,8 @@ var app = express();
 
 app.use(express.static(__dirname + '/'));
 
-var server = app.listen(3000, function () {
-    console.log("Server running on port 3000..");
+var server = app.listen(5000, function () {
+    console.log("Server running on port 5000..");
 });
 
 var io = require('socket.io').listen(server);
@@ -16,6 +16,10 @@ app.get('/', function (req, res) {
 var users = [];
 
 io.on('connection', function (socket) {
+
+    socket.on("naa-nagtype",(data)=>{
+        socket.broadcast.emit("naa-nagtype",data)
+    })
 
     var user = {
         username: socket.handshake.query['username'],
@@ -49,7 +53,8 @@ io.on('connection', function (socket) {
         io.emit('users', users);
     });
 
-});
+
+
 
 
 function acceptUser(socket, user) {
@@ -63,6 +68,7 @@ function acceptUser(socket, user) {
             }
         }
     }
+    // this part validates the user and dispaly its username and a message
     
     if (!userFound) {
         users.push(user)
@@ -70,7 +76,7 @@ function acceptUser(socket, user) {
             success: true
         });
 
-        // send systeem message to clients
+        // send system message to clients
         sendSysteemMessage(socket, user.username + ' joined chat.');
 
         // send users to all clients
@@ -86,6 +92,9 @@ function acceptUser(socket, user) {
         socket.disconnect();
     }
 }
+
+
+
 
 function sendSysteemMessage(socket, message) {
     
@@ -111,3 +120,5 @@ function getSocketId(username) {
 function pad(value) {
     return value.toString().length > 1 ? value : '0' + value;
 }
+
+});

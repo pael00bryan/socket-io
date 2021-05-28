@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "author": "reyes",
     "license": "MIT",
+    "main":"index.js",
     "description": "Socket.io & Backbone.js Chat",
     "repository": {
         "type": "git",

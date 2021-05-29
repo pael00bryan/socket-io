@@ -1,4 +1,4 @@
-/* @import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css); */
+@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
 * {
     box-sizing: border-box;
     margin: 0;
@@ -29,23 +29,23 @@ body {
 }
 
 
- .search input {
+ .ui .search input {
     outline: none;
     border: none;
     background: none;
 }
 
-.search {
+.ui  .search {
     position: relative;
 }
-    input[type=submit] {
+.ui   input[type=submit] {
         font-family: 'FontAwesome';
         position: absolute;
         right: 25px;
         top: 27px;
         color: white;
     }
-    input[type=search] {
+.ui  input[type=search] {
         background-color: #696c75;
         border-radius: 3px;
         padding: 10px;

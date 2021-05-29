@@ -15,7 +15,7 @@ body {
     height: 80vh;
     background-color: #fff;
     border-radius: 3px;
-    box-shadow: 0 0 25px #f1f1f1;
+    box-shadow: 0 0 25px darken(#61b2d0,10);
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-direction: row;
@@ -28,35 +28,35 @@ body {
     overflow: hidden;
 }
 
-.ui .search input {
+
+ .search input {
     outline: none;
     border: none;
     background: none;
 }
 
-.ui .search {
+.search {
     position: relative;
 }
+    input[type=submit] {
+        font-family: 'FontAwesome';
+        position: absolute;
+        right: 25px;
+        top: 27px;
+        color: white;
+    }
+    input[type=search] {
+        background-color: #696c75;
+        border-radius: 3px;
+        padding: 10px;
+        width: 88%;
+        box-sizing: border-box;
+        margin: 15px;
+        color: #fff;
+    }
 
-.ui .search input[type=submit] {
-    font-family: 'FontAwesome';
-    position: absolute;
-    right: 25px;
-    top: 27px;
-    color: white;
-}
 
-.ui .search input[type=search] {
-    background-color: #696c75;
-    border-radius: 3px;
-    padding: 10px;
-    width: 88%;
-    box-sizing: border-box;
-    margin: 15px;
-    color: #fff;
-}
-
-.ui .left-menu {
+.left-menu {
     width: 26%;
     box-sizing: content-box;
     height: 100%;
@@ -79,7 +79,7 @@ body {
     margin-right: 5px;
 }
 
-.ui .chat {
+ .chat {
     width: 75%;
     height: 100%;
     background: #f1f5f8;

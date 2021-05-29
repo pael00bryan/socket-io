@@ -12,3 +12,7 @@ Open your browser and go to url http://localhost:3000
 
 You can open multiple browser window for testing app with multiple users.
 
+#### Thanks
+I used this awesome template on codepen.
+
+Check out: http://codepen.io/retyui/pen/zxGqPJ
